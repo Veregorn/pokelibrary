@@ -17,8 +17,15 @@ export default async function Home({
   const { type, gen } = await searchParams;
   const list = await getPokemonList();
 
-  // Promise.all para cargar los 386 Pokémon en paralelo en lugar de secuencialmente
-  const pokemon = await Promise.all(list.map((p) => getPokemonDetail(p.id)));
+  // Procesamos en lotes de 20 para evitar rate limiting de PokéAPI y timeouts
+  // en producción. Con caché de 24h, este coste solo se paga una vez.
+  const BATCH_SIZE = 20;
+  const pokemon = [];
+  for (let i = 0; i < list.length; i += BATCH_SIZE) {
+    const batch = list.slice(i, i + BATCH_SIZE);
+    const results = await Promise.all(batch.map((p) => getPokemonDetail(p.id)));
+    pokemon.push(...results);
+  }
 
   return (
     // Suspense requerido por Next.js App Router cuando el hijo usa useSearchParams

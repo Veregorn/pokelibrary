@@ -41,6 +41,10 @@ npm run build   # Build de producción
 npm run lint    # Linting
 ```
 
+## Demo
+
+[pokelibrary.vercel.app](pokelibrary.vercel.app)
+
 ## Limitación conocida
 
 El listado incluye Pokemon de las generaciones I–III (386 Pokémon). Evoluciones de generaciones posteriores (ej: Leafeon, Glaceon, Sylveon) no aparecen en los resultados del buscador. Ampliar el límite es trivial pero aumenta el tiempo de carga inicial.
