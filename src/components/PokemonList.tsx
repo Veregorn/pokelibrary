@@ -173,9 +173,7 @@ export default function PokemonList({
         </select>
         <select
           value={selectedGen ?? ""}
-          onChange={(e) =>
-            updateFilter("gen", e.target.value ? Number(e.target.value) : null)
-          }
+          onChange={(e) => updateFilter("gen", e.target.value || null)}
           className="border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
         >
           <option value="">Todas las generaciones</option>

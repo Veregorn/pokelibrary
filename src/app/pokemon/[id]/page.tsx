@@ -3,6 +3,7 @@
 
 import { getPokemonDetail, getEvolutionChain } from "@/lib/api";
 import { TYPE_COLORS } from "@/lib/typeColors";
+import { PokemonStat } from "@/types/pokemon";
 import BackButton from "@/components/BackButton";
 import Link from "next/link";
 
@@ -65,7 +66,7 @@ export default async function PokemonDetailPage({
         <div className="px-8 py-6">
           <h2 className="text-lg font-bold text-gray-700 mb-4">Stats</h2>
           <div className="space-y-3">
-            {pokemon.stats.map((stat) => (
+            {pokemon.stats.map((stat: PokemonStat) => (
               <div key={stat.name} className="flex items-center gap-3">
                 <span className="w-36 text-sm capitalize text-gray-500">
                   {stat.name.replace("-", " ")}

@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"\\\\.map\\(\\(evo\\\\|\\\\.map\\(\\(stat\\\\|\\\\.map\\(\\(type\\\\|\\\\.map\\(\\(p\\\\b\\\\|\\\\.map\\(\\(gen\\\\|\\\\.map\\(\\(pokemon\\\\|\\\\.map\\(\\(chain\\\\|\\\\.map\\(\\(url\\\\|\\\\.map\\(\\(next\\\\|\\\\.map\\(\\(node\" /Users/rjbarco/repos/binpar-prueba-tecnica/src/app/pokemon/[id]/page.tsx)"
+    ]
+  }
+}
