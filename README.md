@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PokeLibrary — Prueba técnica BinPar
 
-## Getting Started
+Aplicación web para explorar y buscar información de Pokemon, desarrollada como prueba técnica para BinPar por **Raúl Jiménez**.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router)
+- **TypeScript**
+- **Tailwind CSS 4**
+- **PokeAPI** — fuente de datos
+
+## Funcionalidades
+
+- **Listado** de 386 Pokémon (Generaciones I–III) con imagen, tipos con colores y generación
+- **Filtros** por tipo y generación, combinables entre sí
+- **Buscador en tiempo real** con debounce — incluye evoluciones en los resultados (buscar "pikachu" muestra Pichu, Pikachu y Raichu)
+- **Página de detalle** con stats visuales, tipos y cadena de evoluciones navegable
+- **Estado persistido**: filtros, búsqueda y scroll position se mantienen al volver desde el detalle
+- **Manejo de errores** con página de error y botón de reintento
+- **Responsive**: de 2 columnas en móvil a 6 en desktop
+
+## Decisiones técnicas destacadas
+
+- **Server Components por defecto**: el fetch de datos ocurre en el servidor con caching de 24h (`next: { revalidate: 86400 }`), evitando requests repetidas a PokeAPI.
+- **Estado en URL**: los filtros se persisten como query params (`?type=fire&gen=1`), lo que permite restaurarlos al navegar atrás sin necesidad de un store global.
+- **`Promise.all` para requests paralelas**: los detalles de los 386 Pokémon se obtienen en paralelo, no secuencialmente.
+- **Búsqueda con evoluciones**: al buscar, se obtienen las cadenas de evolución de los Pokémon coincidentes y se expanden los resultados. Las URLs duplicadas se deduplican antes de hacer las requests.
+- **`router.replace` para filtros**: los cambios de filtro no generan entradas en el historial, preservando el comportamiento esperado del botón "atrás".
+
+## Instalación y uso
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir [http://localhost:3000](http://localhost:3000) en el navegador.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build   # Build de producción
+npm run lint    # Linting
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Limitación conocida
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+El listado incluye Pokemon de las generaciones I–III (386 Pokémon). Evoluciones de generaciones posteriores (ej: Leafeon, Glaceon, Sylveon) no aparecen en los resultados del buscador. Ampliar el límite es trivial pero aumenta el tiempo de carga inicial.
