@@ -50,7 +50,7 @@ export default async function PokemonDetailPage({
             {pokemon.name}
           </h1>
           <div className="flex gap-2">
-            {pokemon.types.map((type) => (
+            {pokemon.types.map((type: string) => (
               <span
                 key={type}
                 className={`px-3 py-1 rounded-full text-sm capitalize font-medium ${TYPE_COLORS[type] ?? "bg-gray-200"}`}
